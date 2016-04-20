@@ -1,7 +1,157 @@
+
 body {
+  font-family: 'Roboto', sans-serif;
   padding-top: 50px;
+  background-color: white;
 }
+
+a:hover {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+
+.navbar{
+  background-color: #f0f0f0;
+  border-width: 0;
+  box-shadow: 0px 3px 2px #AAAAAA;
+}
+
+.navbar .navbar-brand {
+    color: #6ab344;
+}
+
+.navbar .navbar-nav>li>a {
+    color: rgba(0, 0, 0, 1);
+}
+
+.navbar .navbar-nav>li>a:hover {
+    color: #6ab344;
+}
+
 .news-container {
   padding: 40px 15px;
   text-align: center;
 }
+
+.panel {
+  background-color: white;
+  border-radius: 0px;
+  /* overflow: hidden; */
+  margin-bottom: 30px;
+  box-shadow: 0px 4px 7px #888888;
+}
+
+.panel-heading {
+  border-radius: 0px;
+  padding: 0px 0px 0px 0px;
+}
+
+.panel-heading-info {
+  padding: 10px 30px;
+}
+
+.panel-heading-info hr {
+  border-top: solid 2px #DDDDDD;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+.panel-target {
+  text-align: left;
+  font-weight: normal;
+  font-size: 1.5em;
+}
+
+.panel-title {
+  color: white;
+  background-color:#4db6ac;
+  padding: 20px 20px;
+  text-align: left;
+  font-size: 1.6em;
+}
+
+.panel-icon {
+  padding-right: 0;
+  padding-left: 0;
+  vertical-align: middle;
+}
+
+.panel-body {
+  font-weight: thin;
+  background-color: white;
+  text-align: justify;
+  padding: 0px 20px;
+  font-size: 1.1em;
+}
+
+.panel-teaser {
+  background-color: white;
+  text-align: justify;
+  padding: 0px 20px;
+  font-size: 0.9em;
+  font-weight: thin;
+}
+
+/* .news-button {
+  color: white;
+}
+ */
+/* .TWITTER {
+  background-color: #33FFFF;
+}
+
+.GOOGLE {
+  background-color: #f44336;
+}
+
+.NASDAQ {
+  background-color: #424242;
+}
+
+.NYT {
+  color: black;
+} */
+
+
+
+.searched-title {
+  background-color: #EEEEEE;
+  text-align: center;
+}
+
+.stock-info {
+  border-radius: 0px;
+  padding: 40px 30px;
+  position: fixed;
+}
+
+.stock-info .list-group-item:first-child {
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 0px !important;
+}
+
+.stock-info .list-group-item:last-child {
+  border-bottom-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+
+.stock-info-detail {
+  box-shadow: 0px 3px 5px #888888;
+}
+
+.market-board {
+  margin-top: 30px;
+}
+

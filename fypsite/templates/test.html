@@ -6,15 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <title>FYP-Sys</title>
-
+    
+    <!-- font -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
     <!-- Bootstrap -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/mainpage.css" rel="stylesheet">
+    <link href="/static/css/jquery.stockquotes.min.css" rel="stylesheet">
 
   </head>
   <body>
   
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -27,20 +30,89 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">News</a></li>
-            <li><a href="#financial">Financial</a></li>
-            <li><a href="#about">About</a></li>
+            <li class="active"><a href="/fyp/news">News</a></li>
+            <li><a href="/fyp/chart">Chart</a></li>
           </ul>
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input type="text" name="search-company" class="form-control" size="40" placeholder="paypal">
+            </div>
+            <button type="submit" class="btn btn-default">Search</button>
+          </form>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
   
     <div class="container">
 
-      <div class="news-container">
+      <div class="news-container col-md-8">
+        <div class="jumbotron">
+            <h1>{{target}}</h1>
+            {% if not news_list %}
+                <h3>Just a moment... News are coming...</h3>
+            {% endif %}
+        </div>
+      
         {% for news in news_list %}
-            <h1>{{ news|safe }}</h1>
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#{{ news.title_hash }},#{{ news.title_hash }}-teaser"><strong>{{ news.title }}</strong></a>
+                    </div>
+                    <div class="panel-heading-info">
+                        <div class="row">
+                            <div class="panel-target col-md-10">
+                                {{ news.target }}
+                                <hr align="left" width="95%">
+                            </div>
+                            <div class="panel-icon col-md-2">
+                                <a target="_blank" href="{{ news.link }}" type="button" class="btn btn-default news-button {{ news.source }}">
+                                    <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> {{ news.source }}
+                                </a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div id="{{ news.title_hash }}-teaser" class="collapse in panel-teaser" >
+                    <p>{{ news.content|truncatewords:60 }}</p>
+                </div>
+                <div id="{{ news.title_hash }}"  class="collapse panel-body">
+                    <!-- <h3><a href="{{ news.link }} target='_blank'">{{ news.title }}</a></h3> -->
+                    <p>{{ news.content|linebreaks }}</p>
+                </div>
+            </div>
         {% endfor %}
+        <nav>
+            <ul class="pagination">
+                {% load url_replace %}
+                {% if news_list.has_previous %}
+                <li>
+                    <a href="?{% url_replace request 'page' news_list.previous_page_number %}" aria-label="Previous">Prev</a>
+                </li>
+                {% endif %}
+                {% if news_list.has_next %}
+                <li>
+                    <a href="?{% url_replace request 'page' news_list.next_page_number %}" aria-label="Next">Next</a>
+                </li>
+                {% endif %}  
+            </ul>
+        </nav>
+      </div>
+      <div class="company-info col-md-4">
+        <div class="stock-info">
+            <ul class="list-group stock-info-detail">
+                <li class="list-group-item searched-title"><b>Searched Company</b></li>
+                {% for company in company_list %} 
+                    {% if company.code %}
+                        <li class="list-group-item">{{ company.name }}: <span class="stock-quote" data-symbol="{{ company.code }}"></span><span id="{{ company.code }}"></span></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <div class="market-board">
+                <iframe class="market-iframe" frameborder="0" scrolling="no" height="155" width="300" allowtransparency="true" marginwidth="5" marginheight="0" src="http://indrates.investing.com/index.php?force_lang=1&pairs_ids=166;27;175;168;179;&header-text-color=%23000000&header-bg=%23ededed&curr-name-color=%23000000&inner-text-color=%23000000&green-text-color=%233fa660&green-background=%23B7F4C2&green-background=%23B7F4C2&red-text-color=%23DC0001&red-background=%23FFE2E2&inner-border-color=%23CBCBCB&border-color=%23cbcbcb&bg1=%23ffffff&bg2=%23f2f2f2&open=hide&high=hide&low=hide&last_update=hide"></iframe>
+            </div>
+        </div>
       </div>
 
     </div><!-- /.container -->
@@ -49,5 +121,13 @@
     <script src="/static/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.stockquotes.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            $('.stock-quote').stockQuote();
+        });
+    </script>
+    
   </body>
 </html>
