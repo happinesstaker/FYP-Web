@@ -1,10 +1,12 @@
-
+/* font and global setting */
 body {
   font-family: 'Roboto', sans-serif;
   padding-top: 50px;
   background-color: white;
 }
 
+
+/* set hyperlink style */
 a:hover {
     text-decoration: none;
 }
@@ -22,6 +24,7 @@ a:link {
 }
 
 
+/* navigation bar style */
 .navbar{
   background-color: #f0f0f0;
   border-width: 0;
@@ -40,6 +43,16 @@ a:link {
     color: #6ab344;
 }
 
+
+/* headline (latest news for ...) */
+.news-headline {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  font-size: 1.5em;
+}
+
+
+/* main news list */
 .news-container {
   padding: 40px 15px;
   text-align: center;
@@ -104,11 +117,12 @@ a:link {
   font-weight: thin;
 }
 
+/* style for go-to-original buttons, not used now */
 /* .news-button {
   color: white;
 }
- */
-/* .TWITTER {
+
+ .TWITTER {
   background-color: #33FFFF;
 }
 
@@ -126,6 +140,7 @@ a:link {
 
 
 
+/* additional information panel at right */
 .searched-title {
   background-color: #EEEEEE;
   text-align: center;
