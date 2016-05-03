@@ -21,6 +21,7 @@ Frontend webpage written in HTML *(Django Template)* + CSS+JS *(Bootstrap 2.0)*
 4. Install phpPgAdmin if you want UI for DB
 
 5. Copy all codes to /var/www/ , all settings are included in the code
+
 ---
 #### Places to Modify in Setting:
 
