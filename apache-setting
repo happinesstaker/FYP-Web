@@ -1,0 +1,66 @@
+<VirtualHost *:80>
+	ServerAdmin happinesstaker@gmail.com
+	ServerName www.fyp-flin1.com
+	DocumentRoot /var/www
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /var/www/>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		allow from all
+	</Directory>
+
+	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+	<Directory "/usr/lib/cgi-bin">
+		AllowOverride None
+		Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+		Order allow,deny
+		Allow from all
+	</Directory>
+	<Directory "/usr/share/phppgadmin">
+        	 AuthUserFile /etc/phppgadmin/.htpasswd
+        	 AuthName "Restricted Area"
+        	 AuthType Basic
+        	 require valid-user
+	</Directory>
+
+	<Directory /var/www/fypsite/fypsite>
+    	    <Files wsgi.py>
+                Order deny,allow
+		Allow from all
+    	    </Files>
+	</Directory>
+	<Directory /var/www/fypsite/static>
+             Order deny,allow
+	     Allow from all
+	</Directory>
+	
+
+	WSGIScriptAlias / /var/www/fypsite/fypsite/wsgi.py
+	#WSGIPythonPath /var/www/fypsite:/home/vagrant/.virtualenvs/FYPENV/lib/python2.7/site-packages	
+	WSGIDaemonProcess fypsite python-path=/var/www/fypsite:/home/vagrant/.virtualenvs/FYPENV/lib/python2.7/site-packages
+	WSGIProcessGroup fypsite
+
+	Alias /static /var/www/fypsite/static
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    Alias /doc/ "/usr/share/doc/"
+    <Directory "/usr/share/doc/">
+        Options Indexes MultiViews FollowSymLinks
+        AllowOverride None
+        Order deny,allow
+        Deny from all
+        Allow from 127.0.0.0/255.0.0.0 ::1/128
+    </Directory>
+
+</VirtualHost>
