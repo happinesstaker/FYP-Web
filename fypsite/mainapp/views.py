@@ -23,11 +23,11 @@ def index(request):
         write_related_company(my_target)
 
         # select from processed article table
-        raw_news_list = SelectedArticleTable.objects.filter(target__contains=my_target)
+        raw_news_list = SelectedArticleTable.objects.filter(target__contains=my_target).order_by("-date")
 
         # similarity comparison processed not available, select raw article table as second choice
         if not raw_news_list:
-            raw_news_list = ArticleTable.objects.filter(target__contains=my_target)
+            raw_news_list = ArticleTable.objects.filter(target__contains=my_target).order_by("-date")
 
         # not any company news available in database, initiate an immediate crawling process (resource intensive)
         # Python path and crawling script path are HARD CODED
